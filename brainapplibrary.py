@@ -136,7 +136,28 @@ def plotEMGwithPeaks():
     plt.legend()
     plt.show()
     
-def plotMRCP(index):
+def plotAverageMRCPonChannel(index):
+    rest, active, whole = splitChannel(index)
+
+    #All the stuff bellow here shows a plot of the average MRCP's on the selected channel above
+    xrest = range(2400)
+    xactive = range(3600, 6000)
+    xwhole = range(6000)
+
+    minima = np.argmin(np.average(whole, axis = 0))
+    minima_active = np.argmin(np.average(active, axis = 0)) + 3600
+
+    plt.plot(xwhole, np.average(whole, axis = 0))
+    plt.plot(xrest, np.average(rest, axis = 0), label = "Rest state average")
+    plt.plot(xactive, np.average(active, axis = 0), label = "Active state average")
+    plt.axvline(4800, -2, 2, linestyle='dashed', label = "EMG Peak Location")
+    plt.axvline(minima, -2, 2, linestyle='dotted', label = "Avg. full MRCP minima")
+    plt.axvline(minima_active, -2, 2, color='red', linestyle='dotted', label = "Avg. active phase of MRCP minima")
+    plt.legend()
+    plt.show()
+    
+    
+def plotAllMRCPonChannel(index):
     rest, active, whole = splitChannel(index)
     rows = int(len(whole)**0.5)
     cols = int(len(whole)/rows)
@@ -156,7 +177,7 @@ def plotMRCP(index):
     #plt.tight_layout()
     plt.show()
     
-    print("Legend for the graph of MRCP\'s:")
+    print("Legend for the graph of all MRCP\'s on the channel:")
     print(f" * Brain channel: {index + 1}")
     print(" * Dashed line: detected EMG peak")
     print(" * Blue dotted line: MRCP minima")
