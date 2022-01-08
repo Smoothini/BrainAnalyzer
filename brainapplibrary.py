@@ -136,6 +136,31 @@ def plotEMGwithPeaks():
     plt.legend()
     plt.show()
     
+def plotMRCP(index):
+    rest, active, whole = splitChannel(index)
+    rows = int(len(whole)**0.5)
+    cols = int(len(whole)/rows)
+    
+    #currentPlot = 0
+    #xwhole = range(6000)
+    
+    for currentPlot in range(len(whole)):     
+        minima = np.argmin(whole[currentPlot])
+        minima_active = np.argmin(active[currentPlot]) + 3600
+        plt.subplot(rows, cols, currentPlot + 1)
+        plt.plot(whole[currentPlot])
+        plt.axvline(4800, -2, 2, linestyle='dashed', label = "EMG Peak Location")
+        plt.axvline(minima, -2, 2, linestyle='dotted', label = "Average whole EEG Minima Location")
+        plt.axvline(minima_active, -2, 2, color='red', linestyle='dotted', label = "Average active EEG Minima Location")
+        
+    #plt.tight_layout()
+    plt.show()
+    
+    print("Legend for the graph of MRCP\'s:")
+    print(f" * Brain channel: {index + 1}")
+    print(" * Dashed line: detected EMG peak")
+    print(" * Blue dotted line: MRCP minima")
+    print(" * Red dotted line: detected active phase of MRCP minima")
 
 def findEMGpeaks(signal):
     peaks = []
