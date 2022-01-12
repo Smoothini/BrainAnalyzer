@@ -17,6 +17,7 @@ for i in range(9):
     
     before[i], after[i], _ = bap.splitChannel(i)
 
+#Not used atm, we use the featues from the channels
 def makeFeature(inpu):
     feats = []
     means = []
@@ -88,23 +89,3 @@ for n, _ in enumerate(range(0, len(combined_x_test[0]))):
     
 print(classification_report(y_test, voted_y_values, labels=[0,1]))
 
-
-
-
-
-
-#We have now created both X and Y for the data.
-#X_train, X_test, y_train, y_test = train_test_split(combined_x, combined_y, test_size=0.3) # 70% training and 30% test
-#clf = AdaBoostClassifier(n_estimators=100)
-#clf.fit(X_train, y_train)
-
-#new_results = []
-#index = 0
-#for x in X_test:
- #   result = clf.predict(np.reshape(X_test[index],(1,-1)))
-  #  new_results.append(result[0])
-   # index = index + 1
-
-#print(classification_report(y_test, new_results, labels=[0,1]))
-
-#Create forloop for creating many
