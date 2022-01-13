@@ -17,7 +17,7 @@ EMGoffset = ignored + PeakOffset
 offsetBefore = 4
 offsetAfter = 1
 
-path = 'Data/P10/Cue_Set1.mat'
+path = 'Data/P10/SubjectID_2021_11_22-10_28_28_ext'
 rawdata = sio.loadmat(path)
 
 
@@ -132,6 +132,7 @@ def plotEMGwithPeaks():
     ydim = [EMGthreshold] * len(peaks)
     plt.title("Highpass filtered EMG data with peaks from threshold")
     plt.plot(filteredEMG)
+    print(len(peaks))
     plt.plot(peaks, ydim, marker='p', linestyle='None', label='EMG peaks')
     plt.legend()
     plt.show()
@@ -228,5 +229,3 @@ filteredsignals = multiBandPass(rawsignals)
 filteredEMG = highPass(rawEMG)
 
 peaks = findEMGpeaks(filteredEMG)
-
-
